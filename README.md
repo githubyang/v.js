@@ -28,9 +28,9 @@ v.js是一个原生js验证表单的js库，内部实现dom操作、事件绑定
 
 ```javascript
 
-V({});//运行验证实例
+v({});//运行验证实例
 
-V({
+v({
     form:'v-form',// 表单id 必须
     beforeSubmit:function(){},// 表单提交之前的回调 不是必须
     afterSubmit:function(){},// 表单提交之后的回调 不是必须
