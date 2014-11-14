@@ -28,6 +28,32 @@ v.js是一个原生js验证表单的js库，内部实现dom操作、事件绑定
 
 ```javascript
 
+库里面内置的规则说明:
+
+// required 必填规则
+// username 用户名验证规则
+// password 密码验证规则
+// number   数字验证规则
+// date     时间验证规则
+// money    金额验证规则
+// per      百分比验证规则
+// email    邮箱验证规则
+// phone    座机电话验证规则
+// mobile   手机验证规则
+// url      网址验证规则
+// ip       ip地址验证规则
+// postal   邮编验证规则
+// qq       qq验证规则
+// english  英文字母验证规则
+// chinese  中文字符验证规则
+// ce       中英文验证规则
+// select   下拉选择验证规则
+// integer  整数验证规则
+// uint     无符号整数
+// idcard   身份证验证规则
+// empty    留空验证规则
+// anything 匹配\n在内的任意字符
+
 v({});//运行验证实例
 
 v({
