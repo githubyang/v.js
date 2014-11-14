@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="keywords" content="JavaScript,v.js验证库"/>
+    <meta name="description" content="JavaScript,v.js验证库"/>\
+    <title>V.js验证demo v0.0.1</title>
+    <link type="text/css" rel="stylesheet" href="./v.css"/>
+    <style>
+        #v-form {
+            margin: 50px
+        }
+    </style>
+</head>
+<body>
+<form id="v-form" class="ui-form" method="get" action="upload.php">
+    <div class="field-item">
+        <label for="username"><em>*</em>注册用户名：</label>
+        <input id="username" name="username" class="input-item" type="text" value="" maxlength="20"placeholder="请输入" autocomplete="off"/>
+    </div>
+    <div class="field-item">
+        <label for="password"><em>*</em>登录密码：</label>
+        <input id="password" name="password" class="input-item" type="password" maxlength="20" value=""/>
+    </div>
+    <div class="field-item">
+        <label for="confirm-password"><em>*</em>确认密码：</label>
+        <input id="confirm-password" class="input-item" name="confirm-password" maxlength="20" type="password" value=""/>
+    </div>
+    <div class="field-item">
+        <label for="age">年龄：</label>
+        <input id="age" name="age" class="input-item" type="text" value="" maxlength="3"/>
+    </div>
+    <div class="field-item">
+        <label for="birthday">生日：</label>
+        <input id="birthday" name="birthday" class="input-item" type="text" value="" maxlength="10"/>
+    </div>
+    <div class="field-item">
+        <label for="card-type">证件类型：</label>
+        <select name="card-type" id="card-type" class="select-item">
+            <option value="0">请选择</option>
+            <option value="1">身份证</option>
+            <option value="2">军人证</option>
+        </select>
+    </div>
+    <div class="field-item">
+        <label for="id-card">证件号码：</label>
+        <input id="id-card" type="text" name="id-card" class="input-item" value=""/>
+    </div>
+    <div class="field-item">
+        <label for="email"><em>*</em>电子邮箱：</label>
+        <input id="email" name="email" type="text" class="input-item" value=""/>
+    </div>
+    <div class="field-item">
+        <label for="qq">QQ：</label>
+        <input id="qq" name="qq" class="input-item" type="text" value=""/>
+    </div>
+    <div class="field-item">
+        <label for="telephone">固定电话：</label>
+        <input id="telephone" name="telephone" class="input-item" type="text" value="" maxlength="8"/>
+    </div>
+    <div class="field-item">
+        <label for="mobile">手机：</label>
+        <input id="mobile" name="mobile" type="text" class="input-item" value="" maxlength="11"/>
+    </div>
+    <div class="field-item">
+        <label for="phone"><em>*</em>联系电话：</label>
+        <input id="phone" name="phone" type="text" class="input-item" value="" maxlength="11"/>
+    </div>
+    <div class="field-item">
+        <label for="zip-code">邮政编码：</label>
+        <input id="zip-code" name="zip-code" class="input-item" value="" maxlength="6"/>
+    </div>
+    <div class="field-item">
+        <label for="ip-address">登录IP地址：</label>
+        <input id="ip-address" name="ip-address" class="input-item" type="text" value="" maxlength="15"/>
+    </div>
+    <div class="field-item">
+        <label for="url">个人主页：</label>
+        <input id="url" name="url" class="input-item" type="text" value="" maxlength="100"/>
+    </div>
+    <div class="field-item">
+        <label for="message"><em>*</em>留言：</label>
+        <textarea id="message" class="textarea-item" name="message" rows="5" cols="100" max=300></textarea>
+    </div>
+    <div class="field-item field-item-space"><span>您还可以输入<em id="text-counter">300</em>个字</span></div>
+    <div class="field-item field-item-space">
+        <input name="btnsubmit" id="btnsubmit" type="submit" value=" 确定提交 " class="btn-item"/>
+        <input name="reset" id="reset" type="button" value="重设" class="btn-item"/>
+    </div>
+    <div class="field-item field-item-space">
+        <input name="del" id="del" type="button" value="让第一项不需要验证" class="btn-item"/>
+    </div>
+</form>
+<script type="text/javascript" src="./v.js"></script>
+<script type="text/javascript">
+var a=v({
+        form:'v-form',
+        beforeSubmit:function(){alert('执行提交前的函数')},
+        ajaxSubmit:true,
+        afterSubmit:function(){}}
+    ).add(
+        {
+            target:'username',
+            ruleType:'username',
+            fnRule:function(opts){return true;},
+            action:'upload.php'
+        },
+        {
+            target:'card-type',
+            ruleType:'select',
+            beforeBlur:function(){},
+            afterBlur:function(){}
+        },
+        {
+            target:'password',
+            ruleType:'password',
+            beforeBlur:function(){},
+            afterBlur:function(){}
+        },
+        {
+            target:'confirm-password',
+            ruleType:'password',
+            confirms:'password',
+            error:'你填写的密码不正确或者和原密码不同'
+        },
+        {
+            target:'age',
+            ruleType: 'uint||empty',
+            //rule: /\w+?/,// 自己指定规则就不会使用默认的提示消息
+            error: '虽然这玩意儿不是必填项，但既然你填了，就把它填对吧。'
+        },
+        {
+            target:'birthday',
+            ruleType:'date||empty'
+        },
+        {
+            target:'id-card',
+            ruleType:'idcard||empty'
+        },
+        {
+            target:'email',
+            ruleType:'email||empty'
+        },
+        {
+            target:'qq',
+            ruleType:'qq||empty'
+        },
+        {
+            target:'telephone',
+            ruleType:"phone||empty"
+        },
+        {
+            target:'mobile',
+            ruleType:'mobile||empty'
+        },
+        {
+            target:'phone',
+            ruleType:'phone||mobile',
+            tips:'请输入您的手机或座机电话号码！'
+        },
+        {
+            target:'zip-code',
+            ruleType:'postal||empty'
+        },
+        {
+            target:'ip-address',
+            ruleType:'ip||empty'
+        },
+        {
+            target:'url',
+            ruleType:'url||empty'
+        },
+        {
+            target:'message',
+            ruleType:'required',
+            onkeypress:function(opts){
+                var v=this.value,
+                    len=v.length,
+                    max=this.getAttribute('max') - 0;
+                var textCounter=document.getElementById('text-counter');
+                if (len >= max){
+                    this.value=v.substr(0,max);
+                    len=this.value.length;
+                }
+                textCounter.innerHTML=max - len;
+            }
+        });
+
+    var reset=document.getElementById('reset');
+    var del=document.getElementById('del');
+    reset.onclick=function(){
+        a.reset();
+    }
+    del.onclick=function(){
+        a.remove('username');
+    }
+    a.trigger('username',function(){})
+    a.config({
+        newRules: {
+            rules: /\w+?/,
+            fnRules:function(){return false},
+            tips: '请填写日期！格式如：“2014-11-07”',
+            error: '您填写的日期格式不正确，正确的格式如：“2014-11-07”'
+        }
+    });
+</script>
+</body>
+</html>
