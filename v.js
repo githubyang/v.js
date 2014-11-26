@@ -168,7 +168,7 @@ var v=({
 		return {
 			//----------------------------- 工具方法 -----------------------------
 			$:function(elem){
-				return (typeof elem==='string')?doc.getElementById(elem):'';
+				return (typeof elem==='string')?doc.getElementById(elem):elem;
 			},
 			trim:function(str){// 去除空格
 				return str.replace(/^\s+|\s+$/,'').replace(/\s+/,' ');
@@ -618,17 +618,18 @@ var v=({
 				xhr.onreadystatechange=function(){
 					if(xhr.readyState==4){
 						if(xhr.status>= 200 && xhr.status < 300){
-							set.onsuccess.call(xhr);
+							set.onsuccess.call(xhr,xhr.responseText);
 						}else if(xhr.status == 304){
-							set.onnotmodified.call(xhr);
+							set.onnotmodified.call(xhr,xhr.responseText);
 						}else{
-							set.onfailure.call(xhr);
+							set.onfailure.call(xhr,xhr.responseText);
 						}
 					}
 				}
 				xhr.open(set.type,set.url);
 				if((set.type).toUpperCase() == 'POST'){
 					xhr.setRequestHeader('content-Type','application/x-www-form-urlencoded');
+					xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
 				}
 				set.onbeforerequest();
 				if(set.timeout){
