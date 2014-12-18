@@ -1,3 +1,4 @@
+// v 1.0.1
 var v=({
 	win:null,
 	doc:null,
@@ -55,6 +56,7 @@ var v=({
 				that=this,
 				utils=that.utilsPointer;
 		return{
+			v:'1.0.1',
 			add:function(opts){
 				if(!opts){
 					return this;
@@ -488,9 +490,13 @@ var v=({
 				};
 				if(opts.ruleType){
 					var type=opts.ruleType,
-					rule_item=type.match(/(\w+)/g);
-					for(var i=0;i<rule_item.length;i++){
-						type=type.replace(rule_item[i],'utils.check(' + item[rule_item[i]].rules + ',\'' + utils.escaping(elem.value) + '\')');
+					rule_item=type.match(/\(?(\w+)[<|>|!|=]*\w+[<|>|!|=]*\w+\)?/g);
+					for(var i=0,len=rule_item.length;i<len;i++){
+						if(rule_item[i][0]=='('){
+							type=type.replace('value',utils.escaping(elem.value));
+						}else{
+							type=type.replace(rule_item[i],'utils.check(' + item[rule_item[i]].rules + ',\'' + utils.escaping(elem.value) + '\')');
+						}
 					};
 					reg=type;
 				}else if(opts.rule){
@@ -522,6 +528,11 @@ var v=({
 							if(!pass){
 								utils.warnTips(opts);
 							}else{
+								if(opts.success && typeof opts.success=='function'){
+									if(!opts.success.call(utils,opts,pass)){
+										return;
+									}
+								}
 								utils.successTips(opts);
 								if(opts.confirms){
 									utils.confirms(opts);
@@ -546,7 +557,12 @@ var v=({
 					noCache:true,
 					data:name + '=' + encodeURIComponent(val),
 					onsuccess:function(){
-						var data=eval('(' + this.responseText + ')');
+						var data;
+						if(!this.responseText){
+							data='';
+						}else{
+							data=eval('(' + this.responseText + ')');
+						}
 						callback(data);
 					}
 				});
