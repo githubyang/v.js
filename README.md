@@ -18,6 +18,10 @@ v.js是一个原生js验证表单的js库，内部实现dom操作、事件绑定
 
 ## 更新记录
 
+### V1.0.1
+
+    [!] 第1.0.1个版本 增加单个文本域ajax验证回调和支持表达式验证
+
 ### V1.0
 
     [!] 第一个版本
@@ -66,7 +70,8 @@ v({
 
 .add({
     target:"文本域id",
-    ruleType:"指定验证规则",// 如 ip||empty 表示验证ip是否正确和不能为空
+    // 如 ip||empty 表示验证ip是否正确和不能为空 uint&&(value>0)&&(value<=120) 表达式验证 value代表文本域的值
+    ruleType:"指定验证规则和表达式验证 ip||empty或者ip&&empty",
     rule:/\w+?/,// 自己指定规则就不会使用默认的提示消息
     fnRule:"函数验证",// 自定义函数验证 用来处理一些正则做不到的事情 可以替代正则
     afterBlur:"函数验证",// 失去焦点之后库验证之后的 自定义函数验证
@@ -79,6 +84,14 @@ v({
     noTips:true,//不提示任何消息
     confirms:'password',// 针对密码验证 因为有时候需要确认密码是否两次都正确
     action:'upload.php',// 对当前单个文本域进行ajax验证 如密码 用户名等
+    success:function(opts,data){// 2个参数 opts data服务端传回来的数据 返回flase代表验证失败
+        //warnTips代表警告 errorTips代表错误
+        if(data.a){
+            return true;
+        }else{
+            this.errorTips(opts);
+        }
+    },
     warning:'警告提示消息'// 如用户名已被注册 邮箱已被注册等 
 });
 
