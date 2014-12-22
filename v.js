@@ -167,6 +167,10 @@ var v=({
 				oClass=' ' + oClass + ' ';
 				return(' ' + elem.className + ' ').indexOf(oClass) > -1 ?true:false;
 			},
+			isNumber:function(val){
+				var reg=/^[-+]?(0|[1-9]\d*)(\.\d+)?$/;
+				return reg.test(val);
+			},
 			check:function(reg,str){
 				return reg.test(str);
 			},
@@ -494,7 +498,11 @@ var v=({
 					for(var i=0,len=rule_item.length;i<len;i++){
 						if(rule_item[i][0]=='('){
 							if(elem.value){
-								type=type.replace('value',(elem.value>>0));
+								if(utils.isNumber(elem.value)){
+									type=type.replace('value',(elem.value>>0));
+								}else{
+									type=type.replace('value',(elem.value.length>>0));
+								}
 							}else{
 								type=type.replace('value',0);
 							}

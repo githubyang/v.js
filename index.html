@@ -93,7 +93,7 @@
         <input name="del" id="del" type="button" value="让第一项不需要验证" class="btn-item"/>
     </div>
 </form>
-<script type="text/javascript" src="./v-min.js"></script>
+<script type="text/javascript" src="./v.js"></script>
 <script type="text/javascript">
 var a=v({
         form:'v-form',
@@ -135,7 +135,7 @@ var a=v({
         },
         {
             target:'age',
-            ruleType: 'required&&uint&&(value>0)&&(value<=120)',// 表达式验证 value代表文本域的值 代表值大于0和小于或等于120
+            ruleType: 'required&&uint&&(value>0)&&(value<=2)',// 表达式验证 value代表文本域的值 代表值大于0和小于或等于120
             //rule: /\w+?/,// 自己指定规则就不会使用默认的提示消息
             error: '虽然这玩意儿不是必填项，但既然你填了，就把它填对吧。'
         },
@@ -161,6 +161,7 @@ var a=v({
         },
         {
             target:'mobile',
+            empty:false,
             ruleType:'mobile||empty'
         },
         {
