@@ -490,10 +490,14 @@ var v=({
 				};
 				if(opts.ruleType){
 					var type=opts.ruleType,
-					rule_item=type.match(/\(?(\w+)[<|>|!|=]*\w+[<|>|!|=]*\w+\)?/g);
+					rule_item=type.match(/\(?(\w+)[<>!=]*\w+\)?/g);
 					for(var i=0,len=rule_item.length;i<len;i++){
 						if(rule_item[i][0]=='('){
-							type=type.replace('value',utils.escaping(elem.value));
+							if(elem.value){
+								type=type.replace('value',(elem.value>>0));
+							}else{
+								type=type.replace('value',0);
+							}
 						}else{
 							type=type.replace(rule_item[i],'utils.check(' + item[rule_item[i]].rules + ',\'' + utils.escaping(elem.value) + '\')');
 						}
