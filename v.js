@@ -296,7 +296,6 @@ var v=({
 				elem && (elem.style.display='none');
 			},
 			removeClass:function(elem,oClass){
-				console.log(elem)
 				var C=this.trim(oClass).split(' '),
 						eClass=elem.className,
 						i=0,
@@ -670,7 +669,7 @@ var v=({
 			'error':'对不起，必填信息不能为空，请填写！'
 		},
 		'username':{
-			'rules':/^[\u4E00-\u9FA5A-Za-z0-9_\ ]{5,20}$/i,
+			'rules':/^[\u4E00-\u9FA5A-Za-z0-9_\ ]{2,20}$/i,
 			'tips':"5~20个字符，由中文、英文字母和下划线组成。",
 			'error':"对不起，用户名格式不正确。",
 			'warning':"对不起，该用户名已经被注册。"
