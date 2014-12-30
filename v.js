@@ -621,7 +621,7 @@ var v=({
 				xhr.onreadystatechange=function(){
 					if(xhr.readyState==4){
 						if(xhr.status>=200 && xhr.status<300){
-							set.onsuccess.call(xhr,xhr.responseText);
+							set.onsuccess.call(xhr,new Function('return '+xhr.responseText)());
 						}else if(xhr.status==304){
 							set.onnotmodified.call(xhr,xhr.responseText);
 						}else{
