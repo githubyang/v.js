@@ -420,7 +420,8 @@ var v=({
 						tip=this.$$(that.classObj['tip'],elem.parentNode,'div')[0];
 				if(!tip){
 					tip=this.createTip();
-					elem.parentNode.appendChild(tip);
+					var p=elem.parentNode.nextSibling;
+					elem.parentNode.parentNode.insertBefore(tip,p);
 				}
 				tip.innerHTML='<span>' + msg + '</span>';
 				this.show(tip);
