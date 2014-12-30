@@ -296,6 +296,7 @@ var v=({
 				elem && (elem.style.display='none');
 			},
 			removeClass:function(elem,oClass){
+				console.log(elem)
 				var C=this.trim(oClass).split(' '),
 						eClass=elem.className,
 						i=0,
@@ -420,8 +421,7 @@ var v=({
 						tip=this.$$(that.classObj['tip'],elem.parentNode,'div')[0];
 				if(!tip){
 					tip=this.createTip();
-					var p=elem.parentNode.nextSibling;
-					elem.parentNode.parentNode.insertBefore(tip,p);
+					elem.parentNode.appendChild(tip,elem.nextSibling);
 				}
 				tip.innerHTML='<span>' + msg + '</span>';
 				this.show(tip);
